@@ -1,0 +1,94 @@
+@import 'tailwindcss';
+
+@font-face {
+	font-family: 'SF Mono';
+	src: url('./assets/fonts/SFMonoLight.woff2') format('woff2');
+	font-weight: 300;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'SF Mono';
+	src: url('./assets/fonts/SFMonoRegular.woff2') format('woff2');
+	font-weight: 400;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'SF Mono';
+	src: url('./assets/fonts/SFMonoMedium.woff2') format('woff2');
+	font-weight: 500;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'SF Mono';
+	src: url('./assets/fonts/SFMonoSemibold.woff2') format('woff2');
+	font-weight: 600;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'SF Mono';
+	src: url('./assets/fonts/SFMonoBold.woff2') format('woff2');
+	font-weight: 700;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'SF Mono';
+	src: url('./assets/fonts/SFMonoHeavy.woff2') format('woff2');
+	font-weight: 800;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Menlo';
+	src: url('./assets/fonts/Menlo-Regular.woff2') format('woff2');
+	font-weight: 400;
+	font-style: normal;
+}
+
+@theme {
+	--font-mono: 'SF Mono', monospace;
+	--font-menlo: 'Menlo', monospace;
+
+	--color-muted: #a1a1aa;
+	--color-orangeActive: #f2a618;
+}
+
+@layer base {
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
+
+	:root {
+		font-family: var(--font-mono);
+		font-size: 14px;
+		line-height: 1.5;
+		-webkit-font-smoothing: antialiased;
+	}
+}
+
+@layer utilities {
+	.text-glow {
+		text-shadow: 0 0 18px rgba(238, 152, 3, 0.25);
+	}
+}
+
+body {
+	color: #f2a618;
+	background: #17120c;
+	min-width: 0px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	margin: 20px;
+}
+
+#root {
+	width: 100%;
+}
