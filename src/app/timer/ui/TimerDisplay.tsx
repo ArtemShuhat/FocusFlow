@@ -26,23 +26,24 @@ export function TimerDisplay({
 }: TimerDisplayProps) {
 	return (
 		<div className='p-4'>
-			<TimerHeader
-				reset={reset}
-				badge={badge}
-				badgeClassName={theme.badge}
-			/>
+			<TimerHeader reset={reset} badge={badge} badgeClassName={theme.badge} />
 
 			<div className='relative h-[220px]'>
 				<TimerArc progress={progress} color={theme.arc} />
 
 				<div
-					className={`absolute inset-x-0 top-[82px] text-center text-5xl font-bold ${theme.text} `}
+					className={`absolute inset-x-0 top-[82px] text-center text-5xl font-bold transition-colors duration-700 ${theme.text}`}
 				>
 					{formattedTime}
 				</div>
 			</div>
 
-			<div className='mb-5 text-center text-sm text-white/70'>{message}</div>
+			<div
+				key={message}
+				className='mb-5 text-center text-sm text-white/70 animate-[fadeIn_180ms_ease-out]'
+			>
+				{message}
+			</div>
 		</div>
 	)
 }

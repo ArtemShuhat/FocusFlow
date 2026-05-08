@@ -21,7 +21,10 @@ export function TimerButtons({
 	theme
 }: TimerButtonsProps) {
 	return (
-		<div className='grid grid-cols-2 gap-3 mb-4 mx-4'>
+		<div
+			key={primaryButton.label + secondaryButton?.label}
+			className='grid grid-cols-2 gap-3 mb-4 mx-4 animate-[fadeIn_180ms_ease-out]'
+		>
 			<Button
 				variant='custom'
 				className={theme.button}

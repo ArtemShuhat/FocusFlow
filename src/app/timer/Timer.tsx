@@ -36,7 +36,7 @@ export default function Timer({ timer }: TimerProps) {
 				: null
 
 	return (
-		<div className='mt-5 rounded-3xl border border-white/10 bg-[#191411]'>
+		<div className='mt-5 rounded-3xl border border-white/10 bg-[#191411] transition-colors duration-300'>
 			<TimerDisplay
 				formattedTime={timer.formattedTime}
 				progress={timer.progress}

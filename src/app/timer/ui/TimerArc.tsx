@@ -97,7 +97,7 @@ export function TimerArc({ progress, color }: TimerArcProps) {
 					cy={startDot.y}
 					r='5'
 					fill={color}
-					className='drop-shadow-[0_0_8px_rgba(242,166,24,0.9)]'
+					className='drop-shadow-[0_0_8px_rgba(242,166,24,0.9)] transition-[fill] duration-300 ease-out'
 				/>
 			</g>
 		</svg>
