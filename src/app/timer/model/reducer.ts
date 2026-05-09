@@ -25,8 +25,7 @@ function modeDuration(mode: TimerMode, durations: TimerDurations) {
 
 function nextModeAfterComplete(state: TimerState): TimerMode {
 	if (state.mode !== 'focus') return 'focus'
-	const nextFocusCount = state.focusCompleted + 1
-	return nextFocusCount % LONG_BREAK_EVERY === 0 ? 'longBreak' : 'shortBreak'
+	return state.cycleIndex === LONG_BREAK_EVERY ? 'longBreak' : 'shortBreak'
 }
 
 function stopWithMode(state: TimerState, mode: TimerMode): TimerState {
@@ -37,6 +36,12 @@ function stopWithMode(state: TimerState, mode: TimerMode): TimerState {
 		endAt: null,
 		remainingMs: modeDuration(mode, state.durations)
 	}
+}
+
+function nextCycleAfterBreak(state: TimerState) {
+	return state.mode === 'longBreak'
+		? 1
+		: (state.cycleIndex % LONG_BREAK_EVERY) + 1
 }
 
 export function timerReducer(state: TimerState, event: TimerEvent): TimerState {
@@ -74,7 +79,16 @@ export function timerReducer(state: TimerState, event: TimerEvent): TimerState {
 			}
 		}
 		case 'SET_MODE': {
-			return stopWithMode(state, event.mode)
+			const nextState = stopWithMode(state, event.mode)
+
+			if (event.mode === 'focus' && state.mode !== 'focus') {
+				return {
+					...nextState,
+					cycleIndex: nextCycleAfterBreak(state)
+				}
+			}
+
+			return nextState
 		}
 		case 'TICK': {
 			if (state.status !== 'running' || !state.endAt) return state
@@ -90,12 +104,14 @@ export function timerReducer(state: TimerState, event: TimerEvent): TimerState {
 					mode,
 					endAt: null,
 					remainingMs: modeDuration(mode, state.durations),
-					focusCompleted: state.focusCompleted + 1,
-					cycleIndex: (state.cycleIndex % LONG_BREAK_EVERY) + 1
+					focusCompleted: state.focusCompleted + 1
 				}
 			}
 
-			return stopWithMode(state, 'focus')
+			return {
+				...stopWithMode(state, 'focus'),
+				cycleIndex: nextCycleAfterBreak(state)
+			}
 		}
 		case 'SET_DURATION': {
 			const durations = { ...state.durations, ...event.patch }

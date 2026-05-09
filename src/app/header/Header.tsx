@@ -2,7 +2,7 @@ import { Clock, Settings } from 'lucide-react'
 
 export function Header() {
 	return (
-		<div className=' flex justify-between items-center mt-4'>
+		<header className=' flex justify-between items-center mt-4'>
 			<h1 className='font-mono text-2xl font-semibold'>
 				<span className='text-white'>Focus</span>Flow
 			</h1>
@@ -10,6 +10,6 @@ export function Header() {
 				<Clock className='w-6' />
 				<Settings className='w-6' />
 			</div>
-		</div>
+		</header>
 	)
 }

@@ -1,5 +1,6 @@
 interface TimerSessionProgressProps {
 	currentPoint: number
+	completedPoints: number
 	totalPoints: number
 	cycleIndex: number
 	theme: {
@@ -14,13 +15,16 @@ interface TimerSessionProgressProps {
 
 export function TimerSessionProgress({
 	currentPoint,
+	completedPoints,
 	totalPoints,
 	cycleIndex,
 	theme
 }: TimerSessionProgressProps) {
-	const safePoint = Math.min(Math.max(currentPoint, 1), totalPoints)
+	const safeCurrentPoint = Math.min(Math.max(currentPoint, 1), totalPoints)
+	const safeCompletedPoints = Math.min(Math.max(completedPoints, 0), totalPoints)
 
-	const progress = totalPoints <= 1 ? 0 : (safePoint - 1) / (totalPoints - 1)
+	const progress =
+		totalPoints <= 1 ? 0 : Math.max(0, safeCompletedPoints - 1) / (totalPoints - 1)
 
 	return (
 		<>
@@ -34,9 +38,9 @@ export function TimerSessionProgress({
 						}}
 					/>
 					<p
-						className='font-mono font-normal text-[13px]'
+						className='font-mono font-normal text-[12px]  tracking-[1.5px]'
 						style={{
-							color: theme.arc,
+							color: theme.arc
 						}}
 					>
 						FOCUS SESSION
@@ -60,8 +64,8 @@ export function TimerSessionProgress({
 
 				{Array.from({ length: totalPoints }).map((_, index) => {
 					const point = index + 1
-					const isActive = point <= safePoint
-					const isCurrent = point === safePoint
+					const isCompleted = point <= safeCompletedPoints
+					const isCurrent = point === safeCurrentPoint
 					const left = totalPoints <= 1 ? 0 : (index / (totalPoints - 1)) * 100
 
 					return (
@@ -72,8 +76,11 @@ export function TimerSessionProgress({
 							}`}
 							style={{
 								left: `${left}%`,
-								borderColor: isActive ? theme.arc : 'rgba(255,255,255,0.25)',
-								backgroundColor: isActive ? theme.arc : '#191411',
+								borderColor:
+									isCompleted || isCurrent
+										? theme.arc
+										: 'rgba(255,255,255,0.25)',
+								backgroundColor: isCompleted ? theme.arc : '#191411',
 								boxShadow: isCurrent ? `0 0 14px ${theme.arc}` : undefined
 							}}
 						/>

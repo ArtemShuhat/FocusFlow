@@ -1,6 +1,8 @@
 import './App.css'
+import { BlockedSection } from './app/blocker/BlockedSection'
 import { Header } from './app/header/Header'
 import { usePomodoroTimer } from './app/timer/hooks/usePomodoroTimer'
+import { LONG_BREAK_EVERY } from './app/timer/model/constants'
 import Timer from './app/timer/Timer'
 import {
 	getTimerVariant,
@@ -11,7 +13,10 @@ import { TimerSessionProgress } from './app/timer/ui/TimerSessionProgress'
 
 export function App() {
 	const timer = usePomodoroTimer()
-	const currentPoint = Math.min(timer.focusCompleted + 1, 4)
+	const totalPoints = LONG_BREAK_EVERY
+	const currentPoint = timer.cycleIndex
+	const isBreak = timer.mode === 'longBreak' || timer.mode === 'shortBreak'
+	const completedPoints = isBreak ? currentPoint : currentPoint - 1
 
 	const variant = getTimerVariant(timer.mode, timer.status)
 	const config = TimerVariantConfig[variant]
@@ -22,11 +27,13 @@ export function App() {
 			<Header />
 			<TimerSessionProgress
 				currentPoint={currentPoint}
-				totalPoints={4}
+				completedPoints={completedPoints}
+				totalPoints={totalPoints}
 				cycleIndex={timer.cycleIndex}
 				theme={theme}
 			/>
 			<Timer timer={timer} />
+			<BlockedSection />
 		</>
 	)
 }
