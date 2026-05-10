@@ -27,7 +27,7 @@ export function TimerButtons({
 		>
 			<Button
 				variant='custom'
-				className={theme.button}
+				className={`${theme.button} hover:brightness-80`}
 				onClick={primaryButton.onClick}
 				disabled={primaryButton.disabled}
 			>
@@ -39,6 +39,7 @@ export function TimerButtons({
 				variant='secondary'
 				onClick={secondaryButton?.onClick}
 				disabled={secondaryButton?.disabled}
+				className='hover:brightness-90'
 			>
 				<Pause className='h-5' />
 				{secondaryButton?.label}

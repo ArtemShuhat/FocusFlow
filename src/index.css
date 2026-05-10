@@ -54,7 +54,12 @@
 	--font-menlo: 'Menlo', monospace;
 
 	--color-muted: #BFB9B1;
+
 	--color-orangeActive: #f2a618;
+	--color-orangeHover: #aa730d;
+
+	--color-brownHover: #211a15
+
 }
 
 @layer base {
