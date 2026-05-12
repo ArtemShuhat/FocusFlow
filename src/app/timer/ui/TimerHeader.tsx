@@ -19,7 +19,6 @@ export function TimerHeader({
 		<div className='flex items-center justify-between'>
 			<div className='flex items-center gap-2'>
 				<span
-					
 					className={`inline-flex items-center gap-1 rounded-full px-2 py-2 text-xs uppercase font-menlo tracking-[1.7px] transition-colors duration-300 ${badgeClassName}`}
 				>
 					<BadgeIcon className='h-5' />
@@ -30,7 +29,7 @@ export function TimerHeader({
 			<div className='inline-flex gap-2 items-center'>
 				<button
 					type='button'
-					className='text-xs font-bold text-white/45 cursor-pointer hover:text-white/65'
+					className='text-xs font-bold text-white/45 cursor-pointer hover:text-white/65 rounded-full hover:bg-white/10 p-2 duration-200'
 					onClick={reset}
 				>
 					<RotateCcw className='h-5 w-5' />

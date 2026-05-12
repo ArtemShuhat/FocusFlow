@@ -1,0 +1,4 @@
+//getBlockedSites
+//addBlockedSite
+//removeBlockedSite
+//setBlockedSiteEnabled

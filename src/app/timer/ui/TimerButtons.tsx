@@ -39,7 +39,7 @@ export function TimerButtons({
 				variant='secondary'
 				onClick={secondaryButton?.onClick}
 				disabled={secondaryButton?.disabled}
-				className='hover:brightness-90'
+				className='hover:brightness-85'
 			>
 				<Pause className='h-5' />
 				{secondaryButton?.label}
