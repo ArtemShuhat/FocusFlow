@@ -1,13 +1,11 @@
 {
 	"manifest_version": 3,
 	"name": "Side panel extension",
-	"version": "1.0",
+	"version": "1.0.0",
 	"description": "Extension with a default side panel.",
-	"icons": {
-		
-	},
+	"icons": {},
 	"side_panel": {
 		"default_path": "index.html"
 	},
-	"permissions": ["sidePanel"]
+	"permissions": ["sidePanel", "storage"]
 }

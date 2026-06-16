@@ -40,7 +40,7 @@ export function TimerDisplay({
 
 			<div
 				key={message}
-				className='mb-5 text-center text-sm text-white/70 animate-[fadeIn_180ms_ease-out]'
+				className='mb-5 text-center text-sm text-muted animate-[fadeIn_180ms_ease-out]'
 			>
 				{message}
 			</div>

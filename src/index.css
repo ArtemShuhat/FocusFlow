@@ -53,14 +53,16 @@
 	--font-mono: 'SF Mono', monospace;
 	--font-menlo: 'Menlo', monospace;
 
-	--color-muted: #bfb9b1;
+	--color-muted: #b3b3b3;
 
 	--color-orangeActive: #f2a618;
 	--color-orangeHover: #aa730d;
 
 	--color-brownHover: #211a15;
-	
+
 	--color-surface: #181411;
+
+	--color-destructive: #b33437;
 }
 
 @layer base {
