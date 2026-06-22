@@ -1,6 +1,3 @@
-//getBlockedSites
-//setBlockedSite
-
 export const STORAGE_KEY = 'blockedSites'
 
 export interface BlockedSite {
