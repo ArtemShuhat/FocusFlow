@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useReducer } from 'react'
+import { useCallback, useEffect, useReducer, useState } from 'react'
 import { createInitialState, timerReducer } from '../model/reducer'
 import type { TimerDurations, TimerMode, TimerState } from '../model/types'
 import { TICK_MS } from '../model/constants'
+import { getStoredTimerState, setStoredTimerState } from '../model/storage'
 
 function formatTime(ms: number) {
 	const totalSeconds = Math.ceil(ms / 1000)
@@ -17,6 +18,47 @@ export function usePomodoroTimer() {
 		undefined,
 		createInitialState
 	)
+
+	const [hydrated, setHydrated] = useState(false)
+
+	useEffect(() => {
+		let cancelled = false
+
+		getStoredTimerState().then((savedState) => {
+			if (cancelled) return
+
+			if (savedState) {
+				dispatch({ type: 'HYDRATE', state: savedState })
+
+				if (savedState.status === 'running') {
+					dispatch({ type: 'TICK', now: Date.now() })
+				}
+			}
+
+			setHydrated(true)
+		})
+
+		return () => {
+			cancelled = true
+		}
+	}, [])
+
+	useEffect(() => {
+		if (!hydrated) return
+
+		setStoredTimerState(state)
+	}, [
+		hydrated,
+		state.status,
+		state.mode,
+		state.endAt,
+		state.durations.focus,
+		state.durations.shortBreak,
+		state.durations.longBreak,
+		state.focusCompleted,
+		state.cycleIndex,
+		state.status === 'running' ? null : state.remainingMs
+	])
 
 	const start = useCallback(() => {
 		dispatch({ type: 'START', now: Date.now() })
