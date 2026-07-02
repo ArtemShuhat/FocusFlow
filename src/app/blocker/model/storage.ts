@@ -1,10 +1,6 @@
-export const STORAGE_KEY = 'blockedSites'
+import type { BlockedSite } from './types'
 
-export interface BlockedSite {
-	id: string
-	hostname: string
-	enabled: boolean
-}
+export const STORAGE_KEY = 'blockedSites'
 
 export function normalizeHostname(value: string) {
 	const url = value.includes('://') ? value : `https://${value}`

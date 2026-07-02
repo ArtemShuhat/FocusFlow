@@ -3,9 +3,9 @@ import {
 	getBlockedSites,
 	normalizeHostname,
 	setBlockedSites,
-	STORAGE_KEY,
-	type BlockedSite
+	STORAGE_KEY
 } from '../model/storage'
+import type { AddBlockedSiteOptions, BlockedSite } from '../model/types'
 
 export function useBlockedSites() {
 	const [sites, setSites] = useState<BlockedSite[]>([])
@@ -39,20 +39,23 @@ export function useBlockedSites() {
 		}
 	}, [])
 
-	const addSite = useCallback(async (value: string) => {
-		const hostname = normalizeHostname(value)
-		const currentSite = await getBlockedSites()
+	const addSite = useCallback(
+		async (value: string, options: AddBlockedSiteOptions = {}) => {
+			const hostname = normalizeHostname(value)
+			const currentSite = await getBlockedSites()
 
-		if (currentSite.some(site => site.hostname === hostname)) return
+			if (currentSite.some(site => site.hostname === hostname)) return
 
-		const newSite: BlockedSite = {
-			id: crypto.randomUUID(),
-			hostname,
-			enabled: true
-		}
+			const newSite: BlockedSite = {
+				id: crypto.randomUUID(),
+				hostname,
+				enabled: options.enabled ?? true
+			}
 
-		await setBlockedSites([...currentSite, newSite])
-	}, [])
+			await setBlockedSites([...currentSite, newSite])
+		},
+		[]
+	)
 
 	const removeSite = useCallback(async (id: string) => {
 		const currentSite = await getBlockedSites()

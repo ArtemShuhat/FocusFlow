@@ -1,7 +1,9 @@
-// export interface BlockedSite {
-// 	hostname: string
-// 	enable: boolean
-// 	cretedAt: number
-// }
+export interface BlockedSite {
+	id: string
+	hostname: string
+	enabled: boolean
+}
 
-// export type BlockedSitesMap = Record<string, BlockedSite>
+export interface AddBlockedSiteOptions {
+	enabled?: boolean
+}

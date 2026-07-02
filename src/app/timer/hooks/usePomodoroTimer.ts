@@ -24,7 +24,7 @@ export function usePomodoroTimer() {
 	useEffect(() => {
 		let cancelled = false
 
-		getStoredTimerState().then((savedState) => {
+		getStoredTimerState().then(savedState => {
 			if (cancelled) return
 
 			if (savedState) {

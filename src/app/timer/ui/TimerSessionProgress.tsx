@@ -21,10 +21,15 @@ export function TimerSessionProgress({
 	theme
 }: TimerSessionProgressProps) {
 	const safeCurrentPoint = Math.min(Math.max(currentPoint, 1), totalPoints)
-	const safeCompletedPoints = Math.min(Math.max(completedPoints, 0), totalPoints)
+	const safeCompletedPoints = Math.min(
+		Math.max(completedPoints, 0),
+		totalPoints
+	)
 
 	const progress =
-		totalPoints <= 1 ? 0 : Math.max(0, safeCompletedPoints - 1) / (totalPoints - 1)
+		totalPoints <= 1
+			? 0
+			: Math.max(0, safeCompletedPoints - 1) / (totalPoints - 1)
 
 	return (
 		<>

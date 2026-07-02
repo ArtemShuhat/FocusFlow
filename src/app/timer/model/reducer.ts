@@ -1,11 +1,5 @@
 import { DEFAULT_DURATION, LONG_BREAK_EVERY } from './constants'
-import type {
-	TimerDurations,
-	TimerEvent,
-	TimerMode,
-	TimerState,
-	
-} from './types'
+import type { TimerDurations, TimerEvent, TimerMode, TimerState } from './types'
 
 export function createInitialState(): TimerState {
 	return {
