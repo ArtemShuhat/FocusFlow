@@ -1,6 +1,8 @@
 import { Globe, X } from 'lucide-react'
-import type { FormEvent } from 'react'
+import type { SyntheticEvent } from 'react'
 import { useState } from 'react'
+import { Button } from '@/shared/ui/Button'
+import { Toggle } from '@/shared/ui/Toggle'
 
 interface AddBlockedSiteModalProps {
 	isOpen: boolean
@@ -19,7 +21,7 @@ export function AddBlockedSiteModal({
 
 	if (!isOpen) return null
 
-	async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+	async function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
 		event.preventDefault()
 
 		const trimmedUrl = url.trim()
@@ -42,7 +44,7 @@ export function AddBlockedSiteModal({
 		<div className='fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-5 backdrop-blur-[2px]'>
 			<form
 				onSubmit={handleSubmit}
-				className='relative w-[390px] max-w-full rounded-[28px] border border-orangeActive/45 bg-[#171310]/95 px-6 py-7 shadow-[0_24px_70px_rgba(0,0,0,0.65),0_0_36px_rgba(242,166,24,0.12)]'
+				className='relative w-[390px] max-w-full rounded-[28px] border border-orangeActive/45 bg-[#171310] px-6 py-7 shadow-[0_24px_70px_rgba(0,0,0,0.65),0_0_36px_rgba(242,166,24,0.12)]'
 			>
 				<button
 					type='button'
@@ -67,7 +69,7 @@ export function AddBlockedSiteModal({
 				<div className='mt-7'>
 					<label
 						htmlFor='blocked-site'
-						className='font-menlo text-[11px] font-bold uppercase tracking-[1.9px] text-orangeActive'
+						className='font-menlo text-[10px] font-bold uppercase tracking-[1.9px] text-orangeActive'
 					>
 						Website
 					</label>
@@ -77,7 +79,7 @@ export function AddBlockedSiteModal({
 						value={url}
 						onChange={event => setUrl(event.target.value)}
 						placeholder='youtube.com or https://example.com'
-						className='mt-3 h-14 w-full rounded-2xl border border-orangeActive bg-transparent px-4 text-lg text-white outline-none transition placeholder:text-muted/70 focus:shadow-[0_0_0_3px_rgba(242,166,24,0.16)]'
+						className='mt-2 h-14 w-full rounded-2xl border border-orangeActive bg-transparent px-4 text-lg text-white outline-none transition placeholder:text-muted/70'
 						type='text'
 						required
 					/>
@@ -89,38 +91,32 @@ export function AddBlockedSiteModal({
 
 				<div className='mt-6 flex h-14 items-center justify-between rounded-2xl border border-white/10 px-4 text-white'>
 					<span className='text-base'>Enable immediately</span>
-					<button
-						type='button'
-						role='switch'
-						aria-checked={enabledImmediately}
-						onClick={() => setEnabledImmediately(value => !value)}
-						className={`flex h-7 w-[52px] items-center rounded-full p-1 transition ${
-							enabledImmediately ? 'bg-orangeActive' : 'bg-white/15'
-						}`}
-					>
-						<span
-							className={`h-5 w-5 rounded-full bg-white transition ${
-								enabledImmediately ? 'translate-x-6' : 'translate-x-0'
-							}`}
-						/>
-					</button>
+					<Toggle
+						checked={enabledImmediately}
+						onCheckedChange={setEnabledImmediately}
+						ariaLabel='Enable site immediately'
+					/>
 				</div>
 
 				<div className='mt-6 grid grid-cols-2 gap-4'>
-					<button
+					<Button
 						type='button'
+						variant='secondary'
+						size='lg'
 						onClick={handleCancel}
-						className='h-14 rounded-2xl border border-white/35 text-base font-bold text-white transition hover:bg-white/5'
+						className='border-white/35 bg-transparent normal-case hover:bg-white/5'
 					>
 						Cancel
-					</button>
-					<button
+					</Button>
+					<Button
 						type='submit'
+						variant='primary'
+						size='lg'
 						disabled={isSubmitting}
-						className='h-14 rounded-2xl bg-orangeActive text-base font-bold text-black shadow-[0_0_18px_rgba(242,166,24,0.34)] transition hover:brightness-95 disabled:cursor-not-allowed disabled:saturate-75'
+						className='normal-case hover:brightness-95'
 					>
 						Add site
-					</button>
+					</Button>
 				</div>
 			</form>
 		</div>

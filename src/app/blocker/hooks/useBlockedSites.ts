@@ -73,11 +73,26 @@ export function useBlockedSites() {
 		)
 	}, [])
 
+	const updateSite = useCallback(
+		async (id: string, patch: { value: string; enabled: boolean }) => {
+			const hostname = normalizeHostname(patch.value)
+			const currentSite = await getBlockedSites()
+
+			await setBlockedSites(
+				currentSite.map(site =>
+					site.id === id ? { ...site, hostname, enabled: patch.enabled } : site
+				)
+			)
+		},
+		[]
+	)
+
 	return {
 		sites,
 		isLoading,
 		addSite,
 		removeSite,
-		toggleSite
+		toggleSite,
+		updateSite
 	}
 }
