@@ -1,9 +1,10 @@
-import { ChevronDown, Globe, Plus, Settings2 } from 'lucide-react'
+import { ChevronDown, Globe, Plus, Settings, Settings2 } from 'lucide-react'
 import { useState } from 'react'
 import { useBlockedSites } from './hooks/useBlockedSites'
 import { AddBlockedSiteModal } from './ui/AddBlockedSiteModal'
 import { Button } from '@/shared/ui/Button'
 import { SettingsBlockedSiteModal } from './ui/SettingsBlockedSiteModal'
+import { SiteFavicon } from './ui/SiteFavicon'
 
 const VISIBLE_SITES_COUNT = 5
 
@@ -50,12 +51,12 @@ export function BlockedSection() {
 			<div className='mb-1'>
 				{visibleSites.map(site => (
 					<div
-						className='group flex items-center justify-between gap-2.5 rounded-2xl bg-surface px-3 py-2 border border-white/10 transition hover:brightness-120 h-10 mb-1'
+						className='group flex items-center justify-between gap-2.5 rounded-2xl bg-surface px-3.5 py-5.5 border border-white/10 transition hover:brightness-120 h-10 mb-1'
 						key={site.id}
 					>
 						<div className='flex items-center gap-2 min-w-0'>
 							<div className='flex h-8 w-8 items-center justify-center rounded-lg'>
-								<Globe className='h-5 w-5 text-muted/60' />
+								<SiteFavicon hostname={site.hostname} />
 							</div>
 
 							<p className='min-w-0 truncate text-white font-normal tracking-wider text-lg'>
@@ -70,7 +71,7 @@ export function BlockedSection() {
 								aria-label={`Open settings for ${site.hostname}`}
 								type='button'
 							>
-								<Settings2 className='h-5 w-5' />
+								<Settings className='h-5 w-5' />
 							</button>
 						</div>
 					</div>
@@ -83,8 +84,8 @@ export function BlockedSection() {
 				onClick={() => setIsAddModalOpen(true)}
 				className='w-full border border-dashed border-orangeActive/40 bg-surface font-medium normal-case text-orangeActive hover:brightness-120'
 			>
-				<Plus className='h-6 w-6' />
-				<span>Add</span>
+				<Plus className='h-6 w-6' strokeWidth={2.5} />
+				<span className='tracking-[1.7px] font-semibold'>Add</span>
 			</Button>
 			<AddBlockedSiteModal
 				isOpen={isAddModalOpen}
