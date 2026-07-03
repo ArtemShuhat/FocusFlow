@@ -5,11 +5,12 @@ import { AddBlockedSiteModal } from './ui/AddBlockedSiteModal'
 import { Button } from '@/shared/ui/Button'
 import { SettingsBlockedSiteModal } from './ui/SettingsBlockedSiteModal'
 import { SiteFavicon } from './ui/SiteFavicon'
+import { toast } from 'sonner'
 
 const VISIBLE_SITES_COUNT = 5
 
 export function BlockedSection() {
-	const { sites, addSite, updateSite } = useBlockedSites()
+	const { sites, addSite, updateSite, removeSite } = useBlockedSites()
 	const [isAddModalOpen, setIsAddModalOpen] = useState(false)
 	const [isExpanded, setIsExpanded] = useState(false)
 	const hasHiddenSites = sites.length > VISIBLE_SITES_COUNT
@@ -93,16 +94,24 @@ export function BlockedSection() {
 				onSubmit={async (value, enabled) => {
 					await addSite(value, { enabled })
 					setIsAddModalOpen(false)
+
+					toast.success('Site added')
 				}}
 			/>
 			<SettingsBlockedSiteModal
-				onSubmit={async (id, value, enabled) => {
-					await updateSite(id, { value, enabled })
-					setEditingSiteId(null)
-				}}
 				isOpen={editingSite !== null}
 				site={editingSite}
 				onClose={() => setEditingSiteId(null)}
+				onSubmit={async (id, value, enabled) => {
+					await updateSite(id, { value, enabled })
+					setEditingSiteId(null)
+					toast.success('Site settings updated')
+				}}
+				onDelete={async id => {
+					await removeSite(id)
+					setEditingSiteId(null)
+					toast.success('Site removed')
+				}}
 			/>
 		</>
 	)

@@ -11,13 +11,15 @@ interface SettingsBlockedSiteModalProps {
 	site: BlockedSite | null
 	onClose: () => void
 	onSubmit: (id: string, value: string, enabled: boolean) => Promise<void>
+	onDelete: (id: string) => Promise<void>
 }
 
 export function SettingsBlockedSiteModal({
 	isOpen,
 	site,
 	onClose,
-	onSubmit
+	onSubmit,
+	onDelete
 }: SettingsBlockedSiteModalProps) {
 	if (!isOpen || !site) return null
 
@@ -27,6 +29,7 @@ export function SettingsBlockedSiteModal({
 			site={site}
 			onClose={onClose}
 			onSubmit={onSubmit}
+			onDelete={onDelete}
 		/>
 	)
 }
@@ -35,12 +38,14 @@ interface SettingsBlockedSiteFormProps {
 	site: BlockedSite
 	onClose: () => void
 	onSubmit: (id: string, value: string, enabled: boolean) => Promise<void>
+	onDelete: (id: string) => Promise<void>
 }
 
 function SettingsBlockedSiteForm({
 	site,
 	onClose,
-	onSubmit
+	onSubmit,
+	onDelete
 }: SettingsBlockedSiteFormProps) {
 	const [url, setUrl] = useState(site.hostname)
 	const [enabled, setEnabled] = useState(site.enabled)
@@ -128,7 +133,7 @@ function SettingsBlockedSiteForm({
 					<button
 						type='button'
 						aria-label={`Delete ${site.hostname}`}
-						onClick={() => removeSite(site.id)}
+						onClick={() => onDelete(site.id)}
 						className='flex h-10 w-10 items-center justify-center rounded-full border border-transparent transition hover:bg-hoverMuted'
 					>
 						<Trash2 className='h-7 w-7 shrink-0 text-red-400' />

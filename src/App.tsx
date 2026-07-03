@@ -10,6 +10,7 @@ import {
 	TimerVariantConfig
 } from './app/timer/ui/timerConfig'
 import { TimerSessionProgress } from './app/timer/ui/TimerSessionProgress'
+import { Toaster } from './shared/ui/Sonner'
 
 export function App() {
 	const timer = usePomodoroTimer()
@@ -34,6 +35,7 @@ export function App() {
 			/>
 			<Timer timer={timer} />
 			<BlockedSection />
+			<Toaster position='bottom-center' />
 		</>
 	)
 }
