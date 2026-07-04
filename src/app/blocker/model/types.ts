@@ -7,3 +7,8 @@ export interface BlockedSite {
 export interface AddBlockedSiteOptions {
 	enabled?: boolean
 }
+
+export interface BlockerSettings {
+	onlyBlockWhenTimerRunning: boolean
+	redirectToFocusScreen: boolean
+}

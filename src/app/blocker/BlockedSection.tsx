@@ -1,17 +1,21 @@
-import { ChevronDown, Globe, Plus, Settings, Settings2 } from 'lucide-react'
+import { ChevronDown, Plus, Settings, Settings2 } from 'lucide-react'
 import { useState } from 'react'
 import { useBlockedSites } from './hooks/useBlockedSites'
+import { useBlockerSettings } from './hooks/useBlockerSettings'
 import { AddBlockedSiteModal } from './ui/AddBlockedSiteModal'
 import { Button } from '@/shared/ui/Button'
-import { SettingsBlockedSiteModal } from './ui/SettingsBlockedSiteModal'
+import { SettingsBlockedSiteModal } from './ui/BlockedSiteSettingsModal'
 import { SiteFavicon } from './ui/SiteFavicon'
 import { toast } from 'sonner'
+import { BlockedSitesPreferencesModal } from './ui/BlockedSitesPreferencesModal'
 
 const VISIBLE_SITES_COUNT = 5
 
 export function BlockedSection() {
 	const { sites, addSite, updateSite, removeSite } = useBlockedSites()
+	const { settings, updateSettings } = useBlockerSettings()
 	const [isAddModalOpen, setIsAddModalOpen] = useState(false)
+	const [isPreferencesModalOpen, setIsPreferencesModalOpen] = useState(false)
 	const [isExpanded, setIsExpanded] = useState(false)
 	const hasHiddenSites = sites.length > VISIBLE_SITES_COUNT
 	const visibleSites = isExpanded ? sites : sites.slice(0, VISIBLE_SITES_COUNT)
@@ -44,8 +48,13 @@ export function BlockedSection() {
 							/>
 						</button>
 					)}
-					<button aria-label='Open blocker settings' type='button'>
-						<Settings2 className='h-5 text-muted' />
+					<button
+						aria-label='Open blocker settings'
+						type='button'
+						onClick={() => setIsPreferencesModalOpen(true)}
+						className='flex h-7 w-7 items-center justify-center rounded-lg text-muted transition hover:bg-surface hover:text-foreground'
+					>
+						<Settings2 className='h-5' />
 					</button>
 				</div>
 			</div>
@@ -113,6 +122,18 @@ export function BlockedSection() {
 					toast.success('Site removed')
 				}}
 			/>
+			{isPreferencesModalOpen && (
+				<BlockedSitesPreferencesModal
+					isOpen={isPreferencesModalOpen}
+					settings={settings}
+					onClose={() => setIsPreferencesModalOpen(false)}
+					onSubmit={async nextSettings => {
+						await updateSettings(nextSettings)
+						setIsPreferencesModalOpen(false)
+						toast.success('Blocker settings updated')
+					}}
+				/>
+			)}
 		</>
 	)
 }

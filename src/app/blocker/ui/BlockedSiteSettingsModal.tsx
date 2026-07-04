@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { Button } from '@/shared/ui/Button'
 import { Toggle } from '@/shared/ui/Toggle'
 import type { BlockedSite } from '../model/types'
-import { useBlockedSites } from '../hooks/useBlockedSites'
 
 interface SettingsBlockedSiteModalProps {
 	isOpen: boolean
@@ -49,7 +48,6 @@ function SettingsBlockedSiteForm({
 }: SettingsBlockedSiteFormProps) {
 	const [url, setUrl] = useState(site.hostname)
 	const [enabled, setEnabled] = useState(site.enabled)
-	const { removeSite } = useBlockedSites()
 
 	async function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
 		event.preventDefault()
