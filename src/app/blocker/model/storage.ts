@@ -11,9 +11,34 @@ export function normalizeHostname(value: string) {
 	return new URL(url).hostname.replace(/^www\./, '')
 }
 
+type StoredBlockedSite = {
+	id?: string
+	hostname: string
+	enabled?: boolean
+	enable?: boolean
+}
+
+function normalizeStoredBlockedSites(value: unknown): BlockedSite[] {
+	if (!Array.isArray(value)) return []
+
+	return value
+		.filter((site): site is StoredBlockedSite => {
+			return (
+				typeof site === 'object' &&
+				site !== null &&
+				typeof site.hostname === 'string'
+			)
+		})
+		.map(site => ({
+			id: site.id ?? crypto.randomUUID(),
+			hostname: site.hostname,
+			enabled: site.enabled ?? site.enable ?? true
+		}))
+}
+
 export async function getBlockedSites() {
 	const result = await chrome.storage.local.get(BLOCKED_SITES_STORAGE_KEY)
-	return (result[BLOCKED_SITES_STORAGE_KEY] as BlockedSite[] | undefined) ?? []
+	return normalizeStoredBlockedSites(result[BLOCKED_SITES_STORAGE_KEY])
 }
 
 export async function setBlockedSites(sites: BlockedSite[]) {

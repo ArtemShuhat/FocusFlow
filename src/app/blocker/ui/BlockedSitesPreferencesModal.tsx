@@ -68,7 +68,7 @@ export function BlockedSitesPreferencesModal({
 				</div>
 
 				<div className='mt-7 space-y-3'>
-					<div className='flex min-h-24 items-center justify-between gap-4 rounded-2xl border border-white/10 px-4 py-4 text-white'>
+					<div className='flex min-h-24 items-center justify-between gap-4 px-4 py-4 text-white'>
 						<div className='min-w-0 `'>
 							<p className='text-base font-semibold'>
 								Only block when timer is running
@@ -85,7 +85,7 @@ export function BlockedSitesPreferencesModal({
 						/>
 					</div>
 
-					<div className='flex min-h-24 items-center justify-between gap-4 rounded-2xl border border-white/10 px-4 py-4 text-white'>
+					<div className='flex min-h-24 items-center justify-between gap-4 px-4 py-4 text-white'>
 						<div className='min-w-0'>
 							<p className='text-base font-semibold'>
 								Redirect to Focus screen
@@ -101,19 +101,6 @@ export function BlockedSitesPreferencesModal({
 							ariaLabel='Redirect to Focus screen'
 						/>
 					</div>
-
-					<button
-						type='button'
-						className='flex min-h-20 w-full items-center gap-4 rounded-2xl border border-white/10 px-4 py-4 text-left text-muted transition hover:bg-white/[0.03] hover:text-white'
-					>
-						<Clock className='h-7 w-7 shrink-0 text-orangeActive' />
-						<div>
-							<p className='font-menlo text-[10px] font-bold uppercase tracking-[1.9px] text-orangeActive'>
-								Quick action
-							</p>
-							<p className='mt-2 text-base'>Pause blocking for 15 min</p>
-						</div>
-					</button>
 				</div>
 
 				<div className='mt-7 grid grid-cols-2 gap-4'>

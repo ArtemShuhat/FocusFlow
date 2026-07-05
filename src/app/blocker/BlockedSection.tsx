@@ -52,9 +52,9 @@ export function BlockedSection() {
 						aria-label='Open blocker settings'
 						type='button'
 						onClick={() => setIsPreferencesModalOpen(true)}
-						className='flex h-7 w-7 items-center justify-center rounded-lg text-muted transition hover:bg-surface hover:text-foreground'
+						className='flex h-9 w-9 items-center justify-center  transition	text-muted cursor-pointer hover:text-white/65 rounded-full hover:bg-white/10 p-2 duration-200'
 					>
-						<Settings2 className='h-5' />
+						<Settings2 className='h-7 w-7' />
 					</button>
 				</div>
 			</div>
