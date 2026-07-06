@@ -10,7 +10,8 @@ export default defineConfig({
 		rollupOptions: {
 			input: {
 				index: resolve(__dirname, 'index.html'),
-				background: resolve(__dirname, 'src/background.ts')
+				background: resolve(__dirname, 'src/background.ts'),
+				focus: resolve(__dirname, 'focus.html')
 			},
 			output: {
 				entryFileNames: chunkInfo =>

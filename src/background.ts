@@ -11,7 +11,7 @@ import {
 
 const BLOCKING_RULE_ID_START = 1
 const TIMER_END_ALARM_NAME = 'focusflow-timer-end'
-const FOCUS_SCREEN_PATH = '/index.html'
+const FOCUS_SCREEN_PATH = '/focus.html'
 
 function createRuleAction(
 	shouldRedirect: boolean
