@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useReducer, useState } from 'react'
+import { useCallback, useEffect, useReducer, useRef, useState } from 'react'
 import { createInitialState, timerReducer } from '../model/reducer'
 import type { TimerDurations, TimerMode, TimerState } from '../model/types'
 import { TICK_MS } from '../model/constants'
 import { getStoredTimerState, setStoredTimerState } from '../model/storage'
+import { playTimerSound } from '../lib/playTimerSound'
 
 function formatTime(ms: number) {
 	const totalSeconds = Math.ceil(ms / 1000)
@@ -20,6 +21,28 @@ export function usePomodoroTimer() {
 	)
 
 	const [hydrated, setHydrated] = useState(false)
+	const previousStateRef = useRef(state)
+
+	useEffect(() => {
+		if (!hydrated) {
+			previousStateRef.current = state
+			return
+		}
+
+		const previousState = previousStateRef.current
+
+		const completedByTimer =
+			previousState.status === 'running' &&
+			state.status === 'idle' &&
+			previousState.endAt !== null &&
+			previousState.endAt <= Date.now()
+
+		if (completedByTimer) {
+			playTimerSound()
+		}
+
+		previousStateRef.current = state
+	}, [hydrated, state])
 
 	useEffect(() => {
 		let cancelled = false
