@@ -59,9 +59,9 @@ export function AddBlockedSiteModal({
 					<Globe className='h-7 w-7' />
 				</div>
 
-				<div className='mt-6 text-center'>
+				<div className='mt-4 text-center'>
 					<h2 className='text-2xl font-bold text-white'>Add blocked site</h2>
-					<p className='mt-3 text-sm text-muted'>
+					<p className='mt-2 text-sm text-muted'>
 						Enter a domain or full URL to block it in FocusFlow.
 					</p>
 				</div>

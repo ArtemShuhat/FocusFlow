@@ -20,3 +20,8 @@ export type TimerEvent =
 	| { type: 'TICK'; now: number }
 	| { type: 'SET_DURATION'; patch: Partial<TimerDurations> }
 	| { type: 'HYDRATE'; state: TimerState }
+
+export interface TimerSettings {
+	soundVolume: number
+	durations: TimerDurations
+}

@@ -1,4 +1,4 @@
-import type { TimerDurations } from './types'
+import type { TimerDurations, TimerSettings } from './types'
 
 export const MINUTE_MS = 60_000
 
@@ -11,3 +11,8 @@ export const DEFAULT_DURATION: TimerDurations = {
 }
 
 export const TICK_MS = 250
+
+export const DEFAULT_TIMER_SETTINGS: TimerSettings = {
+	soundVolume: 70,
+	durations: DEFAULT_DURATION
+}

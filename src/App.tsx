@@ -1,8 +1,11 @@
+import { toast } from 'sonner'
 import './App.css'
 import { BlockedSection } from './app/blocker/BlockedSection'
 import { Header } from './app/header/Header'
 import { usePomodoroTimer } from './app/timer/hooks/usePomodoroTimer'
+import { useTimerSettings } from './app/timer/hooks/useTimerSettings'
 import { LONG_BREAK_EVERY } from './app/timer/model/constants'
+import type { TimerSettings } from './app/timer/model/types'
 import Timer from './app/timer/Timer'
 import {
 	getTimerVariant,
@@ -13,7 +16,8 @@ import { TimerSessionProgress } from './app/timer/ui/TimerSessionProgress'
 import { Toaster } from './shared/ui/Sonner'
 
 export function App() {
-	const timer = usePomodoroTimer()
+	const { settings, updateSettings } = useTimerSettings()
+	const timer = usePomodoroTimer(settings.soundVolume)
 	const totalPoints = LONG_BREAK_EVERY
 	const currentPoint = timer.cycleIndex
 	const isBreak = timer.mode === 'longBreak' || timer.mode === 'shortBreak'
@@ -23,9 +27,20 @@ export function App() {
 	const config = TimerVariantConfig[variant]
 	const theme = timerThemes[config.accent]
 
+	async function handleTimerSettingsSubmit(nextSettings: TimerSettings) {
+		await updateSettings(nextSettings)
+
+		timer.setDuration(nextSettings.durations)
+
+		toast.success('Timer settings updated')
+	}
+
 	return (
 		<>
-			<Header />
+			<Header
+				timerSettings={settings}
+				onTimerSettingsSubmit={handleTimerSettingsSubmit}
+			/>
 			<TimerSessionProgress
 				currentPoint={currentPoint}
 				completedPoints={completedPoints}

@@ -13,7 +13,7 @@ function formatTime(ms: number) {
 	return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
 }
 
-export function usePomodoroTimer() {
+export function usePomodoroTimer(soundVolume: number) {
 	const [state, dispatch] = useReducer(
 		timerReducer,
 		undefined,
@@ -38,11 +38,11 @@ export function usePomodoroTimer() {
 			previousState.endAt <= Date.now()
 
 		if (completedByTimer) {
-			playTimerSound()
+			playTimerSound(soundVolume)
 		}
 
 		previousStateRef.current = state
-	}, [hydrated, state])
+	}, [hydrated, state, soundVolume])
 
 	useEffect(() => {
 		let cancelled = false
