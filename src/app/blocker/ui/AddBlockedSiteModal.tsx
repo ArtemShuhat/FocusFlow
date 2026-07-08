@@ -89,8 +89,13 @@ export function AddBlockedSiteModal({
 					</p>
 				</div>
 
-				<div className='mt-6 flex h-14 items-center justify-between rounded-2xl border border-white/10 px-4 text-white'>
-					<span className='text-base'>Enable immediately</span>
+				<div className='mt-6 flex h-14 items-center justify-between  text-white'>
+					<div>
+						<p className='text-base font-semibold'>Enable immediately</p>
+						<p className='mt-1 text-sm text-muted'>
+							Block this site immediately after it's added.
+						</p>
+					</div>
 					<Toggle
 						checked={enabledImmediately}
 						onCheckedChange={setEnabledImmediately}
@@ -102,7 +107,7 @@ export function AddBlockedSiteModal({
 					<Button
 						type='button'
 						variant='secondary'
-						size='lg'
+						size='md'
 						onClick={handleCancel}
 						className='border-white/35 bg-transparent normal-case hover:bg-white/5'
 					>
@@ -111,7 +116,7 @@ export function AddBlockedSiteModal({
 					<Button
 						type='submit'
 						variant='primary'
-						size='lg'
+						size='md'
 						disabled={isSubmitting}
 						className='normal-case hover:brightness-95'
 					>

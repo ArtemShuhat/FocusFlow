@@ -108,7 +108,7 @@ function SettingsBlockedSiteForm({
 
 				<div className='mt-7 flex items-center justify-between gap-4 text-white'>
 					<div>
-						<p className='text-lg'>Block this site</p>
+						<p className='text-base font-semibold'>Block this site</p>
 						<p className='mt-1 text-sm text-muted'>
 							Turn off to temporarily allow access.
 						</p>
@@ -123,7 +123,7 @@ function SettingsBlockedSiteForm({
 
 				<div className='mt-7 flex min-w-0 items-center justify-between'>
 					<div className='min-w-0'>
-						<p className='text-lg text-red-400'>Delete site</p>
+						<p className='text-base font-semibold text-red-400'>Delete site</p>
 						<p className='mt-1 text-sm text-muted'>
 							Remove it from your blocked sites list.
 						</p>

@@ -94,7 +94,10 @@ export function TimerSettingsModal({
 				</div>
 
 				<section className='mt-6' aria-labelledby='sound-volume-title'>
-					<h3 id='sound-volume-title' className='text-lg font-bold text-white'>
+					<h3
+						id='sound-volume-title'
+						className='text-base font-semibold text-white'
+					>
 						Sound volume
 					</h3>
 					<div className='mt-3 flex items-center gap-4'>
@@ -126,11 +129,11 @@ export function TimerSettingsModal({
 				<section aria-labelledby='session-durations-title' className='mt-6'>
 					<h3
 						id='session-durations-title'
-						className='text-lg font-bold text-white'
+						className='text-base font-semibold text-white'
 					>
 						Session durations
 					</h3>
-					<p className='text-sm text-muted'>
+					<p className='text-sm text-muted mt-1'>
 						Set how long each part of your session lasts.
 					</p>
 

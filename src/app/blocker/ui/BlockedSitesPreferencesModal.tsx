@@ -1,4 +1,4 @@
-import { Clock, SlidersHorizontal, X } from 'lucide-react'
+import { SlidersHorizontal, X } from 'lucide-react'
 import { useState, type SyntheticEvent } from 'react'
 import { Button } from '@/shared/ui/Button'
 import { Toggle } from '@/shared/ui/Toggle'
@@ -67,7 +67,7 @@ export function BlockedSitesPreferencesModal({
 					</p>
 				</div>
 
-				<div className='mt-7 space-y-3'>
+				<div className='mt-4'>
 					<div className='flex min-h-24 items-center justify-between gap-4 px-4 py-4 text-white'>
 						<div className='min-w-0 `'>
 							<p className='text-base font-semibold'>
@@ -103,7 +103,7 @@ export function BlockedSitesPreferencesModal({
 					</div>
 				</div>
 
-				<div className='mt-7 grid grid-cols-2 gap-4'>
+				<div className='mt-5 grid grid-cols-2 gap-4'>
 					<Button
 						type='button'
 						variant='secondary'
