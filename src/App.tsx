@@ -14,6 +14,7 @@ import {
 } from './app/timer/ui/timerConfig'
 import { TimerSessionProgress } from './app/timer/ui/TimerSessionProgress'
 import { Toaster } from './shared/ui/Sonner'
+import { SoonSection } from './app/soon/SoonSection'
 
 export function App() {
 	const { settings, updateSettings } = useTimerSettings()
@@ -50,6 +51,7 @@ export function App() {
 			/>
 			<Timer timer={timer} />
 			<BlockedSection />
+			<SoonSection />
 			<Toaster position='bottom-center' />
 		</>
 	)

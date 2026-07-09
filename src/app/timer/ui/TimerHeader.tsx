@@ -1,5 +1,4 @@
 import { Coffee, Disc2, Pause, RotateCcw } from 'lucide-react'
-import { TimerSessionProgress } from './TimerSessionProgress'
 
 interface TimerHeaderProps {
 	reset: () => void

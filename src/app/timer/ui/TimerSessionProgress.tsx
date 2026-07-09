@@ -43,7 +43,7 @@ export function TimerSessionProgress({
 						}}
 					/>
 					<p
-						className='font-mono font-normal text-[12px]  tracking-[1.5px]'
+						className='font-menlo tracking-[1.7px] font-normal text-xs'
 						style={{
 							color: theme.arc
 						}}
@@ -52,7 +52,7 @@ export function TimerSessionProgress({
 					</p>
 				</div>
 
-				<span className='text-xs uppercase text-white/35 font-menlo tracking-[1.7px]'>
+				<span className='text-xs uppercase text-muted font-menlo tracking-[1.7px]'>
 					CYCLE {cycleIndex}
 				</span>
 			</div>

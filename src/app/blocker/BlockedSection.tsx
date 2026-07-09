@@ -25,8 +25,8 @@ export function BlockedSection() {
 
 	return (
 		<>
-			<div className='mt-8 flex justify-between items-center mb-3'>
-				<h3 className='font-menlo text-[10px] tracking-[1.7px] text-muted font-bold'>
+			<div className='mt-8 flex justify-between items-center mb-2'>
+				<h3 className='font-menlo text-[10px] tracking-[1.7px] text-muted'>
 					BLOCKED SITES
 				</h3>
 				<div className='flex items-center gap-1'>
@@ -61,7 +61,7 @@ export function BlockedSection() {
 			<div className='mb-1'>
 				{visibleSites.map(site => (
 					<div
-						className='group flex items-center justify-between gap-2.5 rounded-2xl bg-surface px-3.5 py-5.5 border border-white/10 transition hover:brightness-120 h-10 mb-1'
+						className='group flex items-center justify-between gap-2.5 rounded-2xl bg-surface px-3.5 py-5.5 border border-white/4 transition hover:brightness-120 h-10 mb-1'
 						key={site.id}
 					>
 						<div className='flex items-center gap-2 min-w-0'>
@@ -69,14 +69,14 @@ export function BlockedSection() {
 								<SiteFavicon hostname={site.hostname} />
 							</div>
 
-							<p className='min-w-0 truncate text-white font-normal tracking-wider text-lg'>
+							<p className='min-w-0 truncate text-white font-normal tracking-wider text-base'>
 								{site.hostname}
 							</p>
 						</div>
 
 						<div className='flex items-center gap-1'>
 							<button
-								className='flex h-8 w-8 items-center justify-center rounded-2xl text-muted/50 opacity-0 transition hover:bg-white/10 hover:text-white group-hover:opacity-100 focus-visible:opacity-100'
+								className='flex h-8 w-8 items-center justify-center rounded-2xl text-muted opacity-0 transition hover:bg-white/10 hover:text-white/65 group-hover:opacity-100 focus-visible:opacity-100'
 								onClick={() => setEditingSiteId(site.id)}
 								aria-label={`Open settings for ${site.hostname}`}
 								type='button'
@@ -90,12 +90,12 @@ export function BlockedSection() {
 			<Button
 				type='button'
 				variant='custom'
-				size='sm'
+				size='md'
 				onClick={() => setIsAddModalOpen(true)}
-				className='w-full border border-dashed border-orangeActive/40 bg-surface font-medium normal-case text-orangeActive hover:brightness-120'
+				className='w-full border border-dashed border-orangeActive/40 bg-surface normal-case text-orangeActive hover:brightness-120 !py-2	'
 			>
-				<Plus className='h-6 w-6' strokeWidth={2.5} />
-				<span className='tracking-[1.7px] font-semibold'>Add</span>
+				<Plus className='h-4 w-4' strokeWidth={2.5} />
+				<p className='text-base font-semibold normal-case'>Add Site</p>
 			</Button>
 			<AddBlockedSiteModal
 				isOpen={isAddModalOpen}
