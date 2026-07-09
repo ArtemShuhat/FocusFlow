@@ -26,14 +26,12 @@ export function Header({ timerSettings, onTimerSettingsSubmit }: HeaderProps) {
 					<Settings className='w-6' />
 				</button>
 
-				{isSettingsModalOpen && (
-					<TimerSettingsModal
-						isOpen={isSettingsModalOpen}
-						onClose={() => setIsSettingsModalOpen(false)}
-						onSubmit={handleTimerSettingsSubmit}
-						settings={timerSettings}
-					/>
-				)}
+				<TimerSettingsModal
+					isOpen={isSettingsModalOpen}
+					onClose={() => setIsSettingsModalOpen(false)}
+					onSubmit={handleTimerSettingsSubmit}
+					settings={timerSettings}
+				/>
 			</div>
 		</header>
 	)

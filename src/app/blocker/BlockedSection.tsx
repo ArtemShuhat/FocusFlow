@@ -122,18 +122,16 @@ export function BlockedSection() {
 					toast.success('Site removed')
 				}}
 			/>
-			{isPreferencesModalOpen && (
-				<BlockedSitesPreferencesModal
-					isOpen={isPreferencesModalOpen}
-					settings={settings}
-					onClose={() => setIsPreferencesModalOpen(false)}
-					onSubmit={async nextSettings => {
-						await updateSettings(nextSettings)
-						setIsPreferencesModalOpen(false)
-						toast.success('Blocker settings updated')
-					}}
-				/>
-			)}
+			<BlockedSitesPreferencesModal
+				isOpen={isPreferencesModalOpen}
+				settings={settings}
+				onClose={() => setIsPreferencesModalOpen(false)}
+				onSubmit={async nextSettings => {
+					await updateSettings(nextSettings)
+					setIsPreferencesModalOpen(false)
+					toast.success('Blocker settings updated')
+				}}
+			/>
 		</>
 	)
 }

@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Button } from '@/shared/ui/Button'
 import { Toggle } from '@/shared/ui/Toggle'
 import type { BlockedSite } from '../model/types'
+import { AnimatePresence, motion } from 'motion/react'
 
 interface SettingsBlockedSiteModalProps {
 	isOpen: boolean
@@ -20,16 +21,18 @@ export function SettingsBlockedSiteModal({
 	onSubmit,
 	onDelete
 }: SettingsBlockedSiteModalProps) {
-	if (!isOpen || !site) return null
-
 	return (
-		<SettingsBlockedSiteForm
-			key={site.id}
-			site={site}
-			onClose={onClose}
-			onSubmit={onSubmit}
-			onDelete={onDelete}
-		/>
+		<AnimatePresence>
+			{isOpen && site && (
+				<SettingsBlockedSiteForm
+					key={site.id}
+					site={site}
+					onClose={onClose}
+					onSubmit={onSubmit}
+					onDelete={onDelete}
+				/>
+			)}
+		</AnimatePresence>
 	)
 }
 
@@ -59,10 +62,20 @@ function SettingsBlockedSiteForm({
 	}
 
 	return (
-		<div className='fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-5 backdrop-blur-[2px]'>
-			<form
+		<motion.div
+			className='fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-5 backdrop-blur-[2px]'
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			exit={{ opacity: 0 }}
+			transition={{ duration: 0.05 }}
+		>
+			<motion.form
 				onSubmit={handleSubmit}
 				className='relative w-[390px] max-w-full rounded-[28px] border border-orangeActive/45 bg-[#171310] px-6 py-7 shadow-[0_24px_70px_rgba(0,0,0,0.65),0_0_36px_rgba(242,166,24,0.12)]'
+				initial={{ opacity: 0, y: 6 }}
+				animate={{ opacity: 1, y: 0 }}
+				exit={{ opacity: 0, y: 6 }}
+				transition={{ duration: 0.05, ease: 'easeOut' }}
 			>
 				<button
 					type='button'
@@ -157,7 +170,7 @@ function SettingsBlockedSiteForm({
 						Save changes
 					</Button>
 				</div>
-			</form>
-		</div>
+			</motion.form>
+		</motion.div>
 	)
 }

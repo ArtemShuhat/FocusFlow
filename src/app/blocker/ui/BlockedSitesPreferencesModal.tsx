@@ -3,6 +3,7 @@ import { useState, type SyntheticEvent } from 'react'
 import { Button } from '@/shared/ui/Button'
 import { Toggle } from '@/shared/ui/Toggle'
 import type { BlockerSettings } from '../model/types'
+import { AnimatePresence, motion } from 'motion/react'
 
 interface BlockedSitesPreferencesModalProps {
 	isOpen: boolean
@@ -25,8 +26,6 @@ export function BlockedSitesPreferencesModal({
 	)
 	const [isSubmitting, setIsSubmitting] = useState(false)
 
-	if (!isOpen) return null
-
 	async function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
 		event.preventDefault()
 		if (isSubmitting) return
@@ -40,11 +39,23 @@ export function BlockedSitesPreferencesModal({
 	}
 
 	return (
-		<div className='fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-5 backdrop-blur-[2px]'>
-			<form
-				onSubmit={handleSubmit}
-				className='relative w-[390px] max-w-full rounded-[28px] border border-orangeActive/45 bg-[#171310] px-6 py-7 shadow-[0_24px_70px_rgba(0,0,0,0.65),0_0_36px_rgba(242,166,24,0.12)]'
-			>
+		<AnimatePresence>
+			{isOpen && (
+				<motion.div
+					className='fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-5 backdrop-blur-[2px]'
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					exit={{ opacity: 0 }}
+					transition={{ duration: 0.05 }}
+				>
+					<motion.form
+						onSubmit={handleSubmit}
+						className='relative w-[390px] max-w-full rounded-[28px] border border-orangeActive/45 bg-[#171310] px-6 py-7 shadow-[0_24px_70px_rgba(0,0,0,0.65),0_0_36px_rgba(242,166,24,0.12)]'
+						initial={{ opacity: 0, y: 6 }}
+						animate={{ opacity: 1, y: 0 }}
+						exit={{ opacity: 0, y: 6 }}
+						transition={{ duration: 0.05, ease: 'easeOut' }}
+					>
 				<button
 					type='button'
 					aria-label='Close blocked sites preferences modal'
@@ -123,7 +134,9 @@ export function BlockedSitesPreferencesModal({
 						Save
 					</Button>
 				</div>
-			</form>
-		</div>
+					</motion.form>
+				</motion.div>
+			)}
+		</AnimatePresence>
 	)
 }
