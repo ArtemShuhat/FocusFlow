@@ -9,8 +9,14 @@ The extension opens in the Chrome side panel, so you can manage your focus sessi
 * Pomodoro timer with focus, short break and long break modes
 * Automatic session flow: focus → break → focus
 * Long break after every 4 focus sessions
+* Timer settings for session durations and alert volume
+* Timer completion sound
 * Website blocker for distracting sites
 * Add, edit and enable/disable blocked websites
+* Blocker preferences for timer-based blocking and focus page redirects
+* Custom focus page for redirected blocked sites
+* Toast notifications for blocker and timer actions
+* Upcoming features section for planned improvements
 * Data persistence using Chrome local storage
 * Side panel interface for quick access
 
@@ -20,6 +26,9 @@ The extension opens in the Chrome side panel, so you can manage your focus sessi
 * TypeScript
 * Vite
 * Tailwind CSS
+* Motion
+* Lucide React
+* Sonner
 * Chrome Extension Manifest V3
 * Chrome Storage API
 * Chrome Declarative Net Request API
@@ -89,6 +98,18 @@ src/
 ├── background.ts      # Chrome extension background script
 ├── App.tsx
 └── main.tsx
+```
+
+Additional current entries:
+
+```bash
+src/app/focus-page/        # Focus redirect page shown instead of blocked sites
+src/app/soon/              # Upcoming features section
+src/assets/sounds/         # Timer alert sounds
+src/app/timer/lib/         # Timer helper utilities
+src/app/timer/hooks/       # Timer hooks and settings hooks
+src/app/blocker/hooks/     # Blocked sites and blocker settings hooks
+focus.html                 # Standalone focus page entry
 ```
 
 ## License
