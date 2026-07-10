@@ -19,7 +19,7 @@ export function Toggle({
 			aria-checked={checked}
 			disabled={disabled}
 			onClick={() => onCheckedChange(!checked)}
-			className={`flex h-7 min-w-15 items-center rounded-full p-1 transition disabled:cursor-not-allowed disabled:opacity-60 ${
+			className={`flex h-7 min-w-15 items-center rounded-full p-1 transition disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer ${
 				checked ? 'bg-orangeActive' : 'bg-white/15'
 			}`}
 		>

@@ -86,7 +86,7 @@ export function TimerSettingsModal({
 							type='button'
 							aria-label='Close timer settings modal'
 							onClick={onClose}
-							className='absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-full text-muted transition hover:bg-white/5 hover:text-white'
+							className='absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-full text-muted transition hover:bg-white/5 hover:text-white cursor-pointer'
 						>
 							<X className='h-6 w-6' />
 						</button>
@@ -249,7 +249,7 @@ function DurationField({
 						type='button'
 						aria-label={`Increase ${label}`}
 						onClick={() => updateValue(value + 1)}
-						className='text-muted transition hover:text-white'
+						className='text-muted transition hover:text-white cursor-pointer'
 					>
 						<ChevronUp className='h-4 w-4' />
 					</button>
@@ -257,7 +257,7 @@ function DurationField({
 						type='button'
 						aria-label={`Decrease ${label}`}
 						onClick={() => updateValue(value - 1)}
-						className='text-muted transition hover:text-white'
+						className='text-muted transition hover:text-white cursor-pointer'
 					>
 						<ChevronDown className='h-4 w-4' />
 					</button>

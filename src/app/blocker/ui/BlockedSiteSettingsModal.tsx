@@ -81,7 +81,7 @@ function SettingsBlockedSiteForm({
 					type='button'
 					aria-label='Close site settings modal'
 					onClick={onClose}
-					className='absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-full text-muted transition hover:bg-white/5 hover:text-white'
+					className='absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-full text-muted transition hover:bg-white/5 hover:text-white cursor-pointer'
 				>
 					<X className='h-6 w-6' />
 				</button>
@@ -145,7 +145,7 @@ function SettingsBlockedSiteForm({
 						type='button'
 						aria-label={`Delete ${site.hostname}`}
 						onClick={() => onDelete(site.id)}
-						className='flex h-10 w-10 items-center justify-center rounded-full border border-transparent transition hover:bg-hoverMuted'
+						className='flex h-10 w-10 items-center justify-center rounded-full border border-transparent transition hover:bg-hoverMuted cursor-pointer'
 					>
 						<Trash2 className='h-7 w-7 shrink-0 text-red-400' />
 					</button>

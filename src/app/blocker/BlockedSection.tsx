@@ -76,7 +76,7 @@ export function BlockedSection() {
 
 						<div className='flex items-center gap-1'>
 							<button
-								className='flex h-8 w-8 items-center justify-center rounded-2xl text-muted opacity-0 transition hover:bg-white/10 hover:text-white/65 group-hover:opacity-100 focus-visible:opacity-100'
+								className='flex h-8 w-8 items-center justify-center rounded-2xl text-muted opacity-0 transition hover:bg-white/10 hover:text-white/65 group-hover:opacity-100 focus-visible:opacity-100 cursor-pointer'
 								onClick={() => setEditingSiteId(site.id)}
 								aria-label={`Open settings for ${site.hostname}`}
 								type='button'

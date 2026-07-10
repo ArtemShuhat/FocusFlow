@@ -60,7 +60,7 @@ export function BlockedSitesPreferencesModal({
 					type='button'
 					aria-label='Close blocked sites preferences modal'
 					onClick={onClose}
-					className='absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-full text-muted transition hover:bg-white/5 hover:text-white'
+					className='absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-full text-muted transition hover:bg-white/5 hover:text-white cursor-pointer'
 				>
 					<X className='h-6 w-6' />
 				</button>
