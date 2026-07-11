@@ -30,6 +30,59 @@ function createRuleAction(
 	}
 }
 
+function isBlockedHostname(hostname: string, blockedHostname: string) {
+	const normalizedHostname = hostname.toLowerCase().replace(/^www\./, '')
+	const normalizedBlockedHostname = blockedHostname
+		.toLowerCase()
+		.replace(/^www\./, '')
+
+	return (
+		normalizedHostname === normalizedBlockedHostname ||
+		normalizedHostname.endsWith(`.${normalizedBlockedHostname}`)
+	)
+}
+
+async function enforceBlockedNavigation(
+	details: chrome.webNavigation.WebNavigationBaseCallbackDetails
+) {
+	if (details.frameId !== 0) return
+
+	let hostname: string
+
+	try {
+		const url = new URL(details.url)
+		if (url.protocol !== 'http:' && url.protocol !== 'https:') return
+
+		hostname = url.hostname
+	} catch {
+		return
+	}
+
+	const [blockedSites, settings, timerState] = await Promise.all([
+		getBlockedSites(),
+		getBlockerSettings(),
+		getStoredTimerState()
+	])
+
+	const isTimerRunning =
+		timerState?.status === 'running' &&
+		timerState.endAt !== null &&
+		timerState.endAt > Date.now()
+
+	const shouldBlock = !settings.onlyBlockWhenTimerRunning || isTimerRunning
+	if (!shouldBlock) return
+
+	const isBlocked = blockedSites.some(
+		site => site.enabled && isBlockedHostname(hostname, site.hostname)
+	)
+
+	if (!isBlocked) return
+
+	await chrome.tabs.update(details.tabId, {
+		url: chrome.runtime.getURL(FOCUS_SCREEN_PATH)
+	})
+}
+
 async function syncBlockingRules() {
 	const blockedSites = await getBlockedSites()
 
@@ -100,3 +153,6 @@ chrome.alarms.onAlarm.addListener(alarm => {
 
 	syncBlockingRules()
 })
+
+chrome.webNavigation.onCommitted.addListener(enforceBlockedNavigation)
+chrome.webNavigation.onHistoryStateUpdated.addListener(enforceBlockedNavigation)

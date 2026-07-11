@@ -11,9 +11,12 @@ export function FocusPage() {
 	return (
 		<>
 			<header className='flex justify-between items-center mx-8 mt-4'>
-				<h1 className='font-mono text-2xl font-semibold'>
-					<span className='text-white'>Focus</span>Flow
-				</h1>
+				<div className='flex items-center gap-2'>
+					<img src='/logo.png' alt='logo-FocusFlow' className='w-10 h-10'/>
+					<h1 className='font-mono text-2xl font-semibold'>
+						<span className='text-white'>Focus</span>Flow
+					</h1>
+				</div>
 				<div className='flex items-center gap-1'>
 					<p className='font-menlo font-medium text-sm tracking-widest text-muted'>
 						ATTENTION PROTECTED
