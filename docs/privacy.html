@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta
+			name="description"
+			content="FocusFlow Privacy Policy: how the Chrome extension handles blocked domains, timer settings, and browser permissions."
+		/>
+		<meta name="theme-color" content="#17120c" />
+		<title>Privacy Policy | FocusFlow</title>
+		<link rel="icon" type="image/png" href="./assets/logo.png" />
+		<link rel="stylesheet" href="./styles.css" />
+	</head>
+	<body>
+		<a class="skip-link" href="#main-content">Skip to content</a>
+
+		<header class="site-header">
+			<a
+				class="brand"
+				href="https://github.com/ArtemShuhat/FocusFlow"
+				target="_blank"
+				rel="noreferrer"
+				aria-label="Open the FocusFlow GitHub repository"
+			>
+				<img src="./assets/logo.png" width="40" height="40" alt="" />
+				<span><strong>Focus</strong>Flow</span>
+			</a>
+
+			<span class="page-label">Privacy</span>
+		</header>
+
+		<main id="main-content">
+			<section class="intro" aria-labelledby="privacy-title">
+				<p class="eyebrow">YOUR DATA, KEPT LOCAL</p>
+				<h1 id="privacy-title">Privacy Policy</h1>
+				<p class="lead">
+					FocusFlow is designed to help you focus without sending your browsing
+					data to the developer or third parties. The extension processes the
+					minimum information needed to run its timer and website blocker.
+				</p>
+
+				<dl class="policy-meta">
+					<div>
+						<dt>Effective date</dt>
+						<dd>July 11, 2026</dd>
+					</div>
+					<div>
+						<dt>Applies to</dt>
+						<dd>FocusFlow Chrome extension</dd>
+					</div>
+				</dl>
+			</section>
+
+			<article class="policy-content">
+				<section aria-labelledby="overview-heading">
+					<p class="section-number" aria-hidden="true">01</p>
+					<div>
+						<h2 id="overview-heading">Overview</h2>
+						<p>
+							FocusFlow does not require an account and does not use analytics,
+							advertising trackers, or external data servers. Information needed
+							by the extension is processed locally in your browser.
+						</p>
+					</div>
+				</section>
+
+				<section aria-labelledby="data-heading">
+					<p class="section-number" aria-hidden="true">02</p>
+					<div>
+						<h2 id="data-heading">Information processed</h2>
+						<p>FocusFlow locally processes and stores:</p>
+						<ul>
+							<li>Domains you add to the blocked-sites list.</li>
+							<li>Whether each blocked domain is enabled.</li>
+							<li>Timer durations, sound volume, mode, and session state.</li>
+							<li>Website-blocking preferences.</li>
+						</ul>
+						<p>
+							The hostname of a page you navigate to is checked in memory
+							against your blocked-sites list. FocusFlow does not save a general
+							browsing history or record the content of pages you visit.
+						</p>
+					</div>
+				</section>
+
+				<section aria-labelledby="not-collected-heading">
+					<p class="section-number" aria-hidden="true">03</p>
+					<div>
+						<h2 id="not-collected-heading">Information not collected</h2>
+						<p>FocusFlow does not collect or access:</p>
+						<ul>
+							<li>Names, email addresses, or account credentials.</li>
+							<li>Passwords, cookies, payment details, or form data.</li>
+							<li>
+								The text, images, messages, or other content of web pages.
+							</li>
+							<li>Location, contacts, files, or device identifiers.</li>
+						</ul>
+					</div>
+				</section>
+
+				<section aria-labelledby="permissions-heading">
+					<p class="section-number" aria-hidden="true">04</p>
+					<div>
+						<h2 id="permissions-heading">Why permissions are needed</h2>
+						<div class="table-wrap" tabindex="0">
+							<table>
+								<thead>
+									<tr>
+										<th scope="col">Permission</th>
+										<th scope="col">Purpose</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><code>storage</code></td>
+										<td>Saves timer settings and blocked domains locally.</td>
+									</tr>
+									<tr>
+										<td><code>declarativeNetRequest</code></td>
+										<td>Blocks or redirects domains selected by you.</td>
+									</tr>
+									<tr>
+										<td><code>webNavigation</code></td>
+										<td>Detects navigation on SPA websites such as YouTube.</td>
+									</tr>
+									<tr>
+										<td><code>host access</code></td>
+										<td>Allows blocking to work on domains you add.</td>
+									</tr>
+									<tr>
+										<td><code>alarms</code></td>
+										<td>Completes timers while the side panel is closed.</td>
+									</tr>
+									<tr>
+										<td><code>offscreen</code></td>
+										<td>Plays the local timer sound in the background.</td>
+									</tr>
+									<tr>
+										<td><code>favicon</code></td>
+										<td>Displays icons for domains in your blocked list.</td>
+									</tr>
+									<tr>
+										<td><code>sidePanel</code></td>
+										<td>Displays the FocusFlow interface in Chrome.</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</section>
+
+				<section aria-labelledby="storage-heading">
+					<p class="section-number" aria-hidden="true">05</p>
+					<div>
+						<h2 id="storage-heading">Storage and retention</h2>
+						<p>
+							Settings and blocked domains are stored using
+							<code>chrome.storage.local</code> on your device. They remain
+							there until you edit them, remove them, clear the extension's
+							storage, or uninstall FocusFlow.
+						</p>
+					</div>
+				</section>
+
+				<section aria-labelledby="sharing-heading">
+					<p class="section-number" aria-hidden="true">06</p>
+					<div>
+						<h2 id="sharing-heading">Sharing and transmission</h2>
+						<p>
+							FocusFlow does not transmit, sell, rent, or share your stored data
+							with the developer, advertisers, data brokers, or other third
+							parties. The timer sound is bundled with the extension and is
+							played locally.
+						</p>
+					</div>
+				</section>
+
+				<section aria-labelledby="changes-heading">
+					<p class="section-number" aria-hidden="true">07</p>
+					<div>
+						<h2 id="changes-heading">Changes to this policy</h2>
+						<p>
+							This policy may be updated when FocusFlow's functionality or data
+							practices change. The effective date at the top of this page will
+							be revised when an update is published.
+						</p>
+					</div>
+				</section>
+
+				<section aria-labelledby="contact-heading">
+					<p class="section-number" aria-hidden="true">08</p>
+					<div>
+						<h2 id="contact-heading">Contact</h2>
+						<p>Questions about this policy can be sent to the developer:</p>
+						<div class="contact-links">
+							<a
+								href="https://github.com/ArtemShuhat"
+								target="_blank"
+								rel="noreferrer"
+								>GitHub</a
+							>
+							<a
+								href="https://t.me/ArtemShuhat"
+								target="_blank"
+								rel="noreferrer"
+								>Telegram</a
+							>
+						</div>
+					</div>
+				</section>
+			</article>
+		</main>
+
+		<footer class="site-footer">
+			<p>FocusFlow</p>
+			<p>Pomodoro timer and website blocker.</p>
+		</footer>
+	</body>
+</html>
