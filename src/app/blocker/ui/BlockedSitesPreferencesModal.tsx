@@ -18,6 +18,29 @@ export function BlockedSitesPreferencesModal({
 	onClose,
 	onSubmit
 }: BlockedSitesPreferencesModalProps) {
+	return (
+		<AnimatePresence>
+			{isOpen && (
+				<BlockedSitesPreferencesDialog
+					settings={settings}
+					onClose={onClose}
+					onSubmit={onSubmit}
+				/>
+			)}
+		</AnimatePresence>
+	)
+}
+
+type BlockedSitesPreferencesDialogProps = Omit<
+	BlockedSitesPreferencesModalProps,
+	'isOpen'
+>
+
+function BlockedSitesPreferencesDialog({
+	settings,
+	onClose,
+	onSubmit
+}: BlockedSitesPreferencesDialogProps) {
 	const [onlyBlockWhenTimerRunning, setOnlyBlockWhenTimerRunning] = useState(
 		settings.onlyBlockWhenTimerRunning
 	)
@@ -31,31 +54,33 @@ export function BlockedSitesPreferencesModal({
 		if (isSubmitting) return
 
 		setIsSubmitting(true)
-		await onSubmit({
-			onlyBlockWhenTimerRunning,
-			redirectToFocusScreen
-		})
-		setIsSubmitting(false)
+
+		try {
+			await onSubmit({
+				onlyBlockWhenTimerRunning,
+				redirectToFocusScreen
+			})
+		} finally {
+			setIsSubmitting(false)
+		}
 	}
 
 	return (
-		<AnimatePresence>
-			{isOpen && (
-				<motion.div
-					className='fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-5 backdrop-blur-[2px]'
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					exit={{ opacity: 0 }}
-					transition={{ duration: 0.05 }}
-				>
-					<motion.form
-						onSubmit={handleSubmit}
-						className='relative w-[390px] max-w-full rounded-[28px] border border-orangeActive/45 bg-[#171310] px-6 py-7 shadow-[0_24px_70px_rgba(0,0,0,0.65),0_0_36px_rgba(242,166,24,0.12)]'
-						initial={{ opacity: 0, y: 6 }}
-						animate={{ opacity: 1, y: 0 }}
-						exit={{ opacity: 0, y: 6 }}
-						transition={{ duration: 0.05, ease: 'easeOut' }}
-					>
+		<motion.div
+			className='fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-5 backdrop-blur-[2px]'
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			exit={{ opacity: 0 }}
+			transition={{ duration: 0.05 }}
+		>
+			<motion.form
+				onSubmit={handleSubmit}
+				className='relative w-[390px] max-w-full rounded-[28px] border border-orangeActive/45 bg-[#171310] px-6 py-7 shadow-[0_24px_70px_rgba(0,0,0,0.65),0_0_36px_rgba(242,166,24,0.12)]'
+				initial={{ opacity: 0, y: 6 }}
+				animate={{ opacity: 1, y: 0 }}
+				exit={{ opacity: 0, y: 6 }}
+				transition={{ duration: 0.05, ease: 'easeOut' }}
+			>
 				<button
 					type='button'
 					aria-label='Close blocked sites preferences modal'
@@ -134,9 +159,7 @@ export function BlockedSitesPreferencesModal({
 						Save
 					</Button>
 				</div>
-					</motion.form>
-				</motion.div>
-			)}
-		</AnimatePresence>
+			</motion.form>
+		</motion.div>
 	)
 }

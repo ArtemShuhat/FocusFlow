@@ -13,7 +13,11 @@ const VISIBLE_SITES_COUNT = 5
 
 export function BlockedSection() {
 	const { sites, addSite, updateSite, removeSite } = useBlockedSites()
-	const { settings, updateSettings } = useBlockerSettings()
+	const {
+		settings,
+		isLoading: isBlockerSettingsLoading,
+		updateSettings
+	} = useBlockerSettings()
 	const [isAddModalOpen, setIsAddModalOpen] = useState(false)
 	const [isPreferencesModalOpen, setIsPreferencesModalOpen] = useState(false)
 	const [isExpanded, setIsExpanded] = useState(false)
@@ -51,8 +55,9 @@ export function BlockedSection() {
 					<button
 						aria-label='Open blocker settings'
 						type='button'
+						disabled={isBlockerSettingsLoading}
 						onClick={() => setIsPreferencesModalOpen(true)}
-						className='flex h-9 w-9 items-center justify-center  transition	text-muted cursor-pointer hover:text-white/65 rounded-full hover:bg-white/10 p-2 duration-200'
+						className='flex h-9 w-9 cursor-pointer items-center justify-center rounded-full p-2 text-muted transition duration-200 hover:bg-white/10 hover:text-white/65 disabled:cursor-wait disabled:opacity-50 disabled:hover:bg-transparent disabled:hover:text-muted'
 					>
 						<Settings2 className='h-7 w-7' />
 					</button>
