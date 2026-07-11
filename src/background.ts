@@ -5,13 +5,92 @@ import {
 	getBlockerSettings
 } from './app/blocker/model/storage'
 import {
+	getTimerSettings,
 	getStoredTimerState,
+	setStoredTimerState,
 	TIMER_STORAGE_KEY
 } from './app/timer/model/storage'
+import { TIMER_SOUND_MESSAGE_TYPE } from './app/timer/model/constants'
+import { timerReducer } from './app/timer/model/reducer'
+import type { TimerState } from './app/timer/model/types'
 
 const BLOCKING_RULE_ID_START = 1
 const TIMER_END_ALARM_NAME = 'focusflow-timer-end'
 const FOCUS_SCREEN_PATH = '/focus.html'
+const OFFSCREEN_DOCUMENT_PATH = '/offscreen.html'
+
+let creatingOffscreenDocument: Promise<void> | null = null
+
+async function ensureOffscreenDocument() {
+	const offscreenUrl = chrome.runtime.getURL(OFFSCREEN_DOCUMENT_PATH)
+	const existingContexts = await chrome.runtime.getContexts({
+		contextTypes: [chrome.runtime.ContextType.OFFSCREEN_DOCUMENT],
+		documentUrls: [offscreenUrl]
+	})
+
+	if (existingContexts.length > 0) return
+
+	if (!creatingOffscreenDocument) {
+		creatingOffscreenDocument = chrome.offscreen.createDocument({
+			url: OFFSCREEN_DOCUMENT_PATH,
+			reasons: [chrome.offscreen.Reason.AUDIO_PLAYBACK],
+			justification:
+				'Play the timer completion sound while the panel is closed.'
+		})
+	}
+
+	try {
+		await creatingOffscreenDocument
+	} finally {
+		creatingOffscreenDocument = null
+	}
+}
+
+async function playTimerCompletionSound() {
+	const sidePanelContexts = await chrome.runtime.getContexts({
+		contextTypes: [chrome.runtime.ContextType.SIDE_PANEL]
+	})
+
+	if (sidePanelContexts.length > 0) return
+
+	const settings = await getTimerSettings()
+	if (settings.soundVolume <= 0) return
+
+	await ensureOffscreenDocument()
+	await chrome.runtime.sendMessage({
+		target: 'offscreen',
+		type: TIMER_SOUND_MESSAGE_TYPE,
+		volume: settings.soundVolume
+	})
+}
+
+function didTimerComplete(change?: chrome.storage.StorageChange) {
+	if (!change) return false
+
+	const previousState = change.oldValue as TimerState | undefined
+	const nextState = change.newValue as TimerState | undefined
+
+	return (
+		previousState?.status === 'running' &&
+		previousState.endAt !== null &&
+		previousState.endAt <= Date.now() &&
+		nextState?.status === 'idle'
+	)
+}
+
+async function completeExpiredTimer() {
+	const timerState = await getStoredTimerState()
+	const now = Date.now()
+
+	if (
+		timerState?.status !== 'running' ||
+		timerState.endAt === null ||
+		timerState.endAt > now
+	)
+		return
+
+	await setStoredTimerState(timerReducer(timerState, { type: 'TICK', now }))
+}
 
 function createRuleAction(
 	shouldRedirect: boolean
@@ -122,7 +201,6 @@ async function syncBlockingRules() {
 	await chrome.alarms.clear(TIMER_END_ALARM_NAME)
 
 	if (
-		settings.onlyBlockWhenTimerRunning &&
 		timerState?.status === 'running' &&
 		timerState.endAt !== null &&
 		timerState.endAt > Date.now()
@@ -133,11 +211,23 @@ async function syncBlockingRules() {
 	}
 }
 
-chrome.runtime.onInstalled.addListener(syncBlockingRules)
-chrome.runtime.onStartup.addListener(syncBlockingRules)
+async function initializeBackground() {
+	await completeExpiredTimer()
+	await syncBlockingRules()
+}
+
+chrome.runtime.onInstalled.addListener(initializeBackground)
+chrome.runtime.onStartup.addListener(initializeBackground)
 
 chrome.storage.onChanged.addListener((changes, areaName) => {
 	if (areaName !== 'local') return
+
+	if (didTimerComplete(changes[TIMER_STORAGE_KEY])) {
+		playTimerCompletionSound().catch(error => {
+			console.error('Failed to play timer completion sound', error)
+		})
+	}
+
 	if (
 		!changes[BLOCKED_SITES_STORAGE_KEY] &&
 		!changes[BLOCKER_SETTINGS_STORAGE_KEY] &&
@@ -148,10 +238,11 @@ chrome.storage.onChanged.addListener((changes, areaName) => {
 	syncBlockingRules()
 })
 
-chrome.alarms.onAlarm.addListener(alarm => {
+chrome.alarms.onAlarm.addListener(async alarm => {
 	if (alarm.name !== TIMER_END_ALARM_NAME) return
 
-	syncBlockingRules()
+	await completeExpiredTimer()
+	await syncBlockingRules()
 })
 
 chrome.webNavigation.onCommitted.addListener(enforceBlockedNavigation)

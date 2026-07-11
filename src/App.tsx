@@ -18,7 +18,7 @@ import { SoonSection } from './app/soon/SoonSection'
 import { Footer } from './app/footer/Footer'
 
 export function App() {
-	const { settings, updateSettings } = useTimerSettings()
+	const { settings, isLoading, updateSettings } = useTimerSettings()
 	const timer = usePomodoroTimer(settings.soundVolume)
 	const totalPoints = LONG_BREAK_EVERY
 	const currentPoint = timer.cycleIndex
@@ -41,6 +41,7 @@ export function App() {
 		<>
 			<Header
 				timerSettings={settings}
+				isTimerSettingsLoading={isLoading}
 				onTimerSettingsSubmit={handleTimerSettingsSubmit}
 			/>
 			<TimerSessionProgress

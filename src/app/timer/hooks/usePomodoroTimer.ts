@@ -30,7 +30,6 @@ export function usePomodoroTimer(soundVolume: number) {
 		}
 
 		const previousState = previousStateRef.current
-
 		const completedByTimer =
 			previousState.status === 'running' &&
 			state.status === 'idle' &&

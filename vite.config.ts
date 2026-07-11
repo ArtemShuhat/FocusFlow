@@ -11,7 +11,8 @@ export default defineConfig({
 			input: {
 				index: resolve(__dirname, 'index.html'),
 				background: resolve(__dirname, 'src/background.ts'),
-				focus: resolve(__dirname, 'focus.html')
+				focus: resolve(__dirname, 'focus.html'),
+				offscreen: resolve(__dirname, 'offscreen.html')
 			},
 			output: {
 				entryFileNames: chunkInfo =>

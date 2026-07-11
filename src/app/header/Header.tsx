@@ -5,10 +5,15 @@ import type { TimerSettings } from '../timer/model/types'
 
 interface HeaderProps {
 	timerSettings: TimerSettings
+	isTimerSettingsLoading: boolean
 	onTimerSettingsSubmit: (settings: TimerSettings) => Promise<void>
 }
 
-export function Header({ timerSettings, onTimerSettingsSubmit }: HeaderProps) {
+export function Header({
+	timerSettings,
+	isTimerSettingsLoading,
+	onTimerSettingsSubmit
+}: HeaderProps) {
 	const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false)
 
 	async function handleTimerSettingsSubmit(settings: TimerSettings) {
@@ -26,8 +31,11 @@ export function Header({ timerSettings, onTimerSettingsSubmit }: HeaderProps) {
 			</div>
 			<div className='flex justify-between gap-5 text-muted '>
 				<button
+					type='button'
+					aria-label='Open timer settings'
+					disabled={isTimerSettingsLoading}
 					onClick={() => setIsSettingsModalOpen(true)}
-					className='flex h-10 w-10 items-center justify-center transition text-muted cursor-pointer hover:text-white/65 rounded-full hover:bg-white/10 p-2 duration-200'
+					className='flex h-10 w-10 cursor-pointer items-center justify-center rounded-full p-2 text-muted transition duration-200 hover:bg-white/10 hover:text-white/65 disabled:cursor-wait disabled:opacity-50 disabled:hover:bg-transparent disabled:hover:text-muted'
 				>
 					<Settings className='w-7 h-7' />
 				</button>
