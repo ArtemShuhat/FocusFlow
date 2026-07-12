@@ -1,4 +1,4 @@
-import { Info, X } from 'lucide-react'
+import { ExternalLink, Info, ShieldCheck, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useId } from 'react'
 import { Button } from '@/shared/ui/Button'
@@ -92,6 +92,28 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
 								<TelegramLogo className='h-[22px] w-[22px] transition-transform group-hover:-translate-y-0.5' />
 							</a>
 						</nav>
+
+						<a
+							href='https://artemshuhat.github.io/FocusFlow/privacy.html'
+							target='_blank'
+							rel='noreferrer'
+							className='group mt-6 flex items-center justify-between gap-3 rounded-2xl bg-white/[0.05] px-4 py-3 no-underline transition hover:bg-orangeActive/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orangeActive'
+						>
+							<span className='flex min-w-0 items-center gap-3'>
+								<span className='flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-orangeActive/10 text-orangeActive'>
+									<ShieldCheck className='h-5 w-5' />
+								</span>
+								<span className='min-w-0'>
+									<span className='block text-sm font-semibold text-white'>
+										Privacy Policy
+									</span>
+									<span className='mt-0.5 block text-xs text-muted'>
+										How FocusFlow handles your data.
+									</span>
+								</span>
+							</span>
+							<ExternalLink className='h-4 w-4 shrink-0 text-muted transition group-hover:text-orangeActive' />
+						</a>
 
 						<Button
 							type='button'
