@@ -25,7 +25,7 @@ export function Header({
 		<header className='flex justify-between items-center mt-4'>
 			<div className='flex items-center gap-2'>
 				<img src='/logo.png' alt='logo FocusFlow' className='w-10 h-10' />
-				<h1 className='font-mono text-2xl font-semibold'>
+				<h1 className='text-2xl font-semibold tracking-wide'>
 					<span className='text-white'>Focus</span>Flow
 				</h1>
 			</div>

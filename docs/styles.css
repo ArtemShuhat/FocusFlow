@@ -96,8 +96,10 @@ main,
 	align-items: center;
 	gap: 10px;
 	color: var(--accent);
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 	font-size: 19px;
 	font-weight: 500;
+	letter-spacing: 0.04em;
 	text-decoration: none;
 }
 
